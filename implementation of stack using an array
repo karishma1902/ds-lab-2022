@@ -1,0 +1,69 @@
+//program to implement a stack using an array//
+#include<stdio.h>
+#include<stdlib.h>
+#define size 4
+int top=-1,inp_arr[size];//initialize topmost element of stack =-1//
+void push();//function declaration to insert an element in the stack//
+void pop();//function declaration to delete an element from the stack//
+void show();//function declaration to show the elements of the stack//
+int main()
+{
+ int choice;//select the number on the menu//
+ while(1)
+{
+ printf("1.push\n2.pop\n3.show\n4.exit\n");
+ printf("enter your choice");//taking the choice from the user//
+ scanf("%d",&choice);
+ switch(choice)
+{
+ case 1:push();//calls the insert function in the stack//
+ break;
+ case 2:pop();//calls the delete function in the stack//
+ break;
+ case 3:show();//calls the display function in the stack//
+ break;
+ case 4:exit(0);//exits the code if the choice is invalid//
+ break;
+ default:printf("invalid option");
+}
+}
+}
+ void push()
+{
+ int x;
+ if(top==size-1)//condition to check if the stack is already full//
+{
+ printf("overflow");
+}
+ else
+{
+ printf("enter the element to be inserted");//enter the element in the stack//
+ scanf("%d",&x);
+ top=top+1;//incrementation if the position of topmost element in the stack due to insertion//
+ inp_arr[top]=x;
+}
+}
+ void pop()
+{
+ if(top==-1)//condition to check if the stack is empty//
+{
+ printf("\n underflow");
+}
+ else
+{
+ printf("\n enter element which is removed:%d",inp_arr[top]);//shows the element to be removed//
+
+ top=top-1;//decrements the value of top which l=delets the last element add and reduces its topmost position//
+
+}
+}
+  void show()
+{
+ int i;
+ printf("\n the elements are\t");//prints all the elemnts in the stack//
+ for(i=top;i>=0;i--)//prints elemnt in the array by incrementing its array position//
+{
+ printf("%d",inp_arr[i]);
+}
+}
+
