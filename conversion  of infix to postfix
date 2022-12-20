@@ -1,0 +1,60 @@
+//program to convert an infix expresion to postfix expresion//
+#include<stdio.h>
+#include<stdlib.h>
+
+char stack[20];
+int top=-1;
+void push(char x)//funtion that performs when you want to insert an element in the stack//
+{
+  stack[++top]=x;//condition to increment the topmost element position//
+}
+  char pop()//function that performs the deletion of element in the stack//
+  {
+   if(top==-1)//condition to check if the stack is empty//
+   return-1;
+   else
+   return stack[top--];//if stack is not empty then the topmost element is deleted//
+  }
+     int priority(char x)//function that checks the priority of the operation according to there precedence//
+     {
+       if(x=='(')//brackests have the highest precedence//
+       return 0;
+       if(x=='+'||x=='-')//addition and subtraction gets the second precedence//
+       return 1;
+       if(x=='*'||x=='/')//multiplication and division get the third precedence//
+       return 2;
+      }
+        int main()
+        {
+           char exp[20];//defining the expression//
+           char *e,x;
+           printf("enter the exp");//taking the expression as input from the user//
+           scanf("%s",exp);
+           e=exp;
+           while(*e!='\0')//checks if the enetred expression is a null character//
+           {
+            if(isalnum(*e))  //this condition is used to check if the expression is alphanumeric//
+               {
+                  printf("%c",*e);//if condition is satisfied it printd the operand//
+               }
+                  else if(*e=='(')//checks if the brackets operator is encountered//
+                  push(*e);//if brackets and encountered they are pushed in the stack//
+                  else if(*e==')')//once the closing brackets are encountered the operatior in the brackets are poped//
+                  {
+                     while((x=pop(x))!='(')//condition to pop the operator//
+                     printf("%c",x);
+                  }
+                        else
+                     {
+                       while(priority(stack[top])>=priority(*e)) //this condition checks the precedence of operators//
+                       printf("%c",pop());
+                       push(*e);
+                     }
+                       e++;//incrementation of the expression elements//
+            } 
+                        while(top!=-1)//condition to ckeck if the stack is not empty then pop the elements//
+                        {
+                           printf("%c",pop());
+                        }
+                           return 0;
+         }
