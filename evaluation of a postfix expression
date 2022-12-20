@@ -1,0 +1,48 @@
+//program to evaluate postfix expression//
+#include<stdio.h>
+int stack[20];//delcraing stack arry size//
+int top=-1;//intilize the top of the stak to -1//
+void push(int x)//function defination to insert an element in the stack//
+{
+  stack[++top]=x;//intrementing the stack position//
+}
+   int pop()//function defination to delete the topmost element in the stack//
+    {
+      return stack[top--];//poping out the topmost element of the stack//
+    }
+      int main()
+      {
+         char exp[20];
+         char *e;
+         int n1,n2,n3,num;//defining the numbers in the stack//
+         printf("enter the exp");//taking the input expression from the user//
+         scanf("%s",exp);
+         e=exp;
+         while(*e!='\0')//if e=0 then it terminates the while loop//
+          {
+            if(isdigit(*e))//condition to check if element is a digit//
+              {
+                num=*e-48;//subtracting the element ascii value with 48 which is the ascii value of 0//
+                push(num);//pushing the element in the stack if it is a number//
+              }
+                 else
+               {
+                 n1=pop();//poping the last inserted element//
+                 n2=pop();//poping the 2nd last inserted element//
+                 switch(*e)//if an opeator is met the last 2 elements are poped and operation is performed//
+                 {
+                    case '+': n3=n1+n2;//addition//
+                    break;
+                    case'*': n3=n1*n2;//multiplication//
+                    break;
+                    case'-': n3=n2-n1;//subtraction//
+                    break;
+                    case'/': n3=n2/n1;//division//
+                    break;
+                 }
+                    push(n3);//push the end result//
+                }
+                     e++;//incrementing the next element in the stack//
+           }
+                      printf("\n the result of expression is %s=%d",exp,pop());//prints the output//
+        }
