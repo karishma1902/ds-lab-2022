@@ -1,0 +1,102 @@
+//program to implement a stack using linked list //
+#include<stdio.h>
+#include<stdlib.h>
+void push();////function declaration to insert an element in the stack//
+void pop();//function declaration to delete an element from the stack//
+void display();//function declaration to show the elements of the stack//
+struct node
+{
+ int val;//value//
+ struct node *next;//structude node is defined//
+};
+
+ struct node *head;//structure head//
+ 
+ int main()
+{
+ int choice;
+ while(1)
+{
+ printf("\n operation performed by stack");
+ //menu of operation performed in the stack//
+ printf("\n1.push\n2.pop\n3.display\n");
+ scanf("%d",&choice);
+ switch(choice)
+{
+ case 1:push();//function call to insert an element//
+ break;
+ case 2:pop();//function call to delect an element in c//
+ break;
+ case 3:display();//function call to display an element in c//
+ break;
+ case 4:exit(0);//exits the code if entered wrong number//
+ default:printf("invalid");
+}
+}
+}
+
+ void push()//function to insert an element//
+{
+ int val;
+ struct node *ptr=(struct node*)malloc(sizeof(struct node));//asigning the size of node//
+ if(ptr==NULL)//condition to check if stack is full// 
+{
+ printf("\n not able to push the element");//element insertion is not possible//
+}
+ else
+{
+ printf("\n enter the value");//element to be inserted is enetred//
+ scanf("%d",&val);
+ if(head==NULL)//insertion takes place //
+{
+ ptr->val=val;
+ ptr->next=NULL;
+ head=ptr;
+}
+ else
+{
+ ptr->val=val;
+ ptr->next=head;
+ head=ptr;
+}
+ printf("\n item pushed");
+}
+}
+
+
+  void pop()//function to delete an element from the stack//
+{
+  int item;
+  struct node*ptr;
+  if(head==NULL)//condition to check if the stack is empty// 
+{
+  printf("\n underflow");
+}
+  else
+{
+  item=head->val;
+  ptr=head;
+  head=head->next;
+  free(ptr);
+  printf("\n item popped");//element deleted//
+}
+}
+  void display()
+{
+  int i;
+  struct node*ptr;
+  ptr=head;
+  if(ptr==NULL)
+{
+  printf("\n stack is empty");//condition to check if stack is empty//
+}
+  else
+{
+  printf("\n printing stack element");//displays the elements in the stack//
+  while(ptr!=NULL)
+{
+  printf("%d\t",ptr->val);
+  ptr=ptr->next;
+}
+}
+}
