@@ -1,0 +1,148 @@
+# include <stdio.h>
+# include <string.h>
+# define MAX 100
+#include<ctype.h>
+void infixtoprefix(char infix[20],char prefix[20]);
+void reverse(char array[30]);
+char pop();
+void push(char element);
+int isOperator(char element);
+int priority(element);
+int top=-1;
+char stack[MAX];
+int main() 
+{
+   char infix[20],prefix[20],temp;
+   printf("Enter infix operation: ");//taking the expression as input from user//
+   scanf("%s",infix);
+   infixtoprefix(infix,prefix);//function call to convert an infix expression to prefix//
+   reverse(prefix);
+   printf("the prefix expression is %s",prefix);//output the prefix expression//
+}
+   void infixtoprefix(char infix[20],char prefix[20]) 
+   {
+     int i,j=0;
+     char element;
+     stack[++top]='#';
+     reverse(infix);//function call to reverse the expression//
+     for (i=0;i<strlen(infix);i++)
+      {
+        element=infix[i];
+        if (isOperator(element)==0) //condition to check if the element is operator//
+        {
+          prefix[j]=element;
+          j++;
+       }
+        else 
+        {
+          if (element==')') 
+          {
+            push(element);
+          } 
+           else if(element == '(') 
+           {
+             while (stack[top]!=')')
+             {
+               prefix[j]=pop();
+               j++;
+             }
+               pop();
+           } 
+             else 
+             {
+               if (priority(stack[top])<=priority(element)) 
+               {
+                 push(element);
+               }
+                 else
+                 {
+                   while(priority(stack[top])>=priority(element)) //check the precedence of 2 operators//
+                   {
+                     prefix[j]=pop();
+                     j++;
+                    }
+                      push(element);
+                 }
+             }
+        }
+     } 
+      while (stack[top]!='#')
+      {
+        prefix[j]=pop();
+        j++;
+      }
+        prefix[j]='\0';
+    }
+
+//funtion to reverse the string of expression entered //
+void reverse(char array[30])
+{
+  int i,j;
+  char e[100];
+  for (i=strlen(array)-1,j=0;i+1!=0;--i,++j) 
+  {
+   e[j]=array[i];
+  }
+   e[j]='\0';
+   strcpy(array,e);
+   return array;
+} 
+
+//function to pop the element encountered//
+char pop() 
+{
+ char a;
+ a=stack[top];
+ top--;
+ return a;
+}
+//function to push the operand in the stack//
+void push(char element)
+ {
+  top++;
+  stack[top]=element;
+}
+//function which checks the precedence of the operators encountered in the expression//
+int priority(element)
+{
+  switch(element) 
+  {
+   case '+'://addition and subtraction have the same precedence so the associativity is from left to right//
+   case '-':
+   return 2;
+   break;
+   case '*'://multiplication and division have the same precedence so the associativity is from right to left//
+   case '/':
+   return 4;
+   break;
+   case '$'://the dollar and power sign have the highest precedence//
+   case '^':
+   return 6;
+   break;
+   case '#':
+   case '('://the elements in brackets are poped when a closing bracket is encountered//
+   case ')':
+   return 1;
+   break;
+  }
+}
+
+int isOperator(char element) 
+{
+  switch(element) 
+ {
+   case '+'://addition//
+   case '-'://subtraction//
+   case '*'://multiplication//
+   case '/'://division//
+   case '^'://power//
+   case '$'://power//
+   case '&':
+   case '('://brackects//
+   case ')':
+   return 1;
+   break;
+   default:
+   return 0;
+ }
+}
