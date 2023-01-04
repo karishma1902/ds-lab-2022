@@ -1,0 +1,41 @@
+//program to find a number in an array using recursion and binary search//
+#include<stdio.h>
+#include<stdlib.h>
+
+int binarysearch(int array[],int x,int low, int high)
+{
+  if(high>=low)//condition to check if the last element is greater than the first element in the array//
+  {
+    int mid=low+(high-low)/2;//formula to find the middle element//
+    if(array[mid]==x)//if middle element is same as the element to find //
+    {
+      return mid;
+    }
+    if(array[mid]>x)//condition to check if middle element is greater than the element to be found//
+    {
+      return binarysearch(array,x,low,mid-1);//function call if condition is true//
+    }
+      else
+      {
+      return binarysearch(array,x,mid+1,high);//function call if condition is false//
+      }
+      return-1;
+ }
+}
+
+int main(void)
+{
+  int array[]={3,4,5,6,7,8,9};//defining the elements of the array//
+  int n= sizeof(array)/sizeof(array[0]);//finding the n value//
+  int x=4;
+  int result=binarysearch(array,x,0,n-1);//function call //
+  if(result==-1)
+   {
+      printf("element not found");
+    } 
+    else
+    {
+      printf("element is found at index %d",result);//prints the position of the element which had to be found//
+    }
+ }
+
