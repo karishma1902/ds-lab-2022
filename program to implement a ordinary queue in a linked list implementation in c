@@ -1,0 +1,94 @@
+//program to implement a ordinary queue using lined list implementation in c//
+//Queues using linked lists//
+#include <stdio.h>
+#include <stdlib.h>
+struct node//declaring a stucture//
+{
+   int data;
+   struct node *next;
+};
+struct node *front, *rear;
+//Enqueue Operation//
+int enqueue(int x)//function to insert element in the queue//
+{
+  
+   struct node *p=(struct node*)malloc(sizeof(struct node));//dynamic memeory allocation of a new node p//
+   p->data=x;
+   p->next=NULL;
+   if (front==NULL)
+   {
+      front=p;
+      rear=p;
+      printf("%d is inserted\n", rear->data);
+   }
+   else 
+   {
+      rear->next=p;
+      rear=p;
+      printf("%d is inserted\n", rear->data);
+   }
+}
+//Dequeue Operation
+void dequeue()//function to delete an element in the queue//
+{
+   struct node *p;
+   if (front==NULL)//condition to check if the queue is empty//
+   {
+      printf("Queue is Empty\n");
+      return;
+   }
+   p=front;
+   printf("%d is deleted\n", p->data);
+   front=front->next;
+   free(p);
+}
+//Display Operation //
+void display()//function to dislay the elements of the queue//
+{
+   if (front==NULL)
+   {
+      printf("Queue is empty\n");
+      return;
+   }
+   struct node *temp=front;
+   while (temp!=NULL)
+   {
+      printf("%d\t", temp->data);
+      temp=temp->next;
+   }
+   printf("\n");
+}
+
+//Main function
+int main()
+{
+    int choice,x;
+    while (1)
+    {
+        printf("1.Insert element to queue \n");//menu of the operations that can be performed in the queue//
+        printf("2.Delete element from queue \n");
+        printf("3.Display all elements of queue \n");
+        printf("4.Quit \n");
+        printf("Enter your choice : ");
+        scanf("%d", &choice);
+        switch (choice)
+        {
+
+            case 1:printf("enter the element you want to enter");
+            scanf("%d",&x);
+            enqueue(x);
+        
+            break;
+            case 2:
+            dequeue();
+            break;
+            case 3:
+            display();
+            break;
+            case 4:
+            exit(1);
+            default:
+            printf("Wrong choice \n");
+        } 
+    } 
+} 
