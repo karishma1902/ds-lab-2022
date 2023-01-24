@@ -1,0 +1,224 @@
+
+//program to implement a singly  linked list//
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+	struct node *next;
+	int data;
+};
+struct node *head;
+void insert_begin();
+void insert_last();
+void insert_random();
+void delete_begin();
+void delete_last();
+void delete_random();
+void display();
+//main function that contains menu of operations//
+void main()
+{
+int choice;  
+        while(1)  
+        {      
+            printf("1.insert_begin \n2.insert_last\n 3.insert_random 4.delete_begin\n 5.delete_last\n 6. delete_rand\n7.display()\n ");
+              
+            printf("Enter your choice ?");  
+            scanf("%d",&choice);  
+            switch(choice)  
+            {  
+                case 1:insert_begin();  
+                       break;  
+
+                case 2:insert_last();
+                        break; 
+                        
+               case 3:insert_random();
+               		break;
+               
+               case 4:delete_begin();  
+                       break;  
+
+               case 5:delete_last();
+                      break;  
+               
+               case 6:delete_random();
+                      break;
+                      
+               case 7:display();
+                      break;
+               
+                default:  
+                printf("Enter valid choice??\n");
+                 
+            }  
+        }  
+    } 
+    //function to insert node at the begining  of the list//
+void insert_begin()
+{
+	struct node *ptr; 
+	int item;
+	ptr=(struct node *)malloc(sizeof(struct node));
+	if(ptr==NULL)//condn to check if the list is full//
+             printf("overflow");
+	
+	
+	else
+	{
+		printf("enter the value");//the data of the new node is enterd by the user//
+		scanf("%d",&item);
+		ptr->data=item;
+		ptr->next=head;
+		head=ptr;
+		printf("node inserted");
+	}
+}
+//function to insert a node at the end of the list//
+void insert_last()
+{
+	struct node *ptr,*temp;
+	int item;
+	ptr=(struct node *)malloc(sizeof(struct node));
+	
+	if(ptr==NULL)
+             printf("overflow");
+		
+	else
+	{
+		printf("enter the value ");
+		scanf("%d",&item);
+		ptr->data=item;
+		if(head==NULL)
+		{
+			ptr->next=NULL;
+			head=ptr;
+			printf("node inserted");
+		}
+		else
+		{
+			temp=head;
+			while(temp->next!=NULL)
+		        	temp=temp->next;
+	
+	
+			temp->next=ptr;
+			ptr->next=NULL;
+			printf("NODE INSERTED");
+	}
+}
+}
+//function to insert the node at a random position in the list//
+void insert_random()
+{
+	struct node *ptr,*temp;
+	int i,item,loc;
+	ptr=(struct node *)malloc(sizeof(struct node));
+	if(ptr==NULL)
+	    printf("OVERFLOW");
+	
+	else
+	{
+		printf("enter the value ");
+		scanf("%d",&item);
+		ptr->data=item;
+		printf("enter the loc after which you want to inser");
+		scanf("%d",&loc);
+		temp=head;
+		for(i=0;i<loc;i++)
+		{
+			temp=temp->next;
+			if(temp==NULL)
+			{
+			    printf("can't insert");
+			    return;
+			}
+			ptr->next=temp->next;
+			temp->next=ptr;
+		}
+	}
+}
+//function to delete the node at the begining//
+void delete_begin()
+{
+	struct node *ptr; 
+	if(head==NULL)
+	   printf("underflow");
+	
+	else
+	{
+	ptr=head;
+	head=ptr->next;
+	free(ptr);
+	printf("node deleted");
+	}
+}
+//function to delete a node at the end of the list//
+void delete_last()
+{
+
+	struct node *ptr,*ptr1;
+	if(head==NULL)
+		printf("underflow");
+	
+	else if(head->next==NULL)
+	{
+		head=NULL;
+		free(head);
+	}
+	else
+	{
+		ptr=head;
+		while(ptr->next!=NULL)
+		{
+			ptr1=ptr;
+			ptr=ptr->next;
+		}
+		ptr1->next=NULL;
+		free(ptr);
+		printf("node deleted");
+	}
+}
+//function to delete a node at a random locaton in the list//
+void delete_random()
+{
+	struct node *ptr,*ptr1;
+	int loc,i;
+	printf("enter the location");
+	scanf("%d",&loc);
+	ptr=head;
+	for(i=0;i<loc;i++)
+	{
+		ptr1=ptr;
+		ptr=ptr->next;
+	        if(ptr==NULL)
+	        {
+	        	printf("can't delete");
+	        	return;
+	        }
+	  }
+	  ptr1->next=ptr->next;
+	  free(ptr);
+	  printf("node deleted");
+}
+//function to print the elements of the list//
+	
+void display()
+{
+	struct node *ptr;
+	if(head==NULL)
+	{
+	   printf("empty");
+	   return;
+	}
+	ptr=head;
+	while(ptr!=NULL)
+	{
+		printf("%d",ptr->data);
+		ptr=ptr->next;
+	}
+}
+	
+	
+
+
